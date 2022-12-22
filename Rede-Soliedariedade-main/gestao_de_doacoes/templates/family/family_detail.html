@@ -1,0 +1,279 @@
+{% extends "base.html" %} 
+{% load static %}
+
+{% block style %}
+  <link rel="stylesheet" href="{% static 'css/detail/family/detail_family.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="row h-100 px-2 d-flex justify-content-center root-container">
+     <div class="animation hide" id="remove-family">
+        <div class="animation-holder">
+          <div class="hide px-4 py-5" id="remove-family-content-holder">
+            <svg xmlns="http://www.w3.org/2000/svg" width="88" height="88" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+            <h3 class="title"><b>Tem certeza?</b></h3>
+            <p class="text-center">Você deseja remover a família de: <b>{{ family.chefe_da_familia }}</b>? Essa ação não pode ser desfeita.</p>
+            <div id="remove-family-button-animation-holder">
+              <button type="button" onclick="hideConfirmation('delete_family')" id="cancel">
+                <b>Cancelar</b>
+              </button>
+              <form method=POST>
+                {% csrf_token %}
+                <button type="submit" name="remove" value="true" id="confirm">
+                  <b>Remover</b>
+                </button>
+              </form>
+            </div>  
+          </div>
+        </div>
+      </div>
+
+      <div class="animation hide" id="create_member">
+        <div class="animation-holder hide d-flex flex-column px-3" id="create_member_content_holder">
+          <div class="member-title-holder bg-dark px-4 py-4">
+            <h5 class="title">
+              Novo membro
+            </h5> 
+            
+            <button class="rounded" type="button" onclick="hideConfirmation('create_member')">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="member-content-holder">
+            <form method=POST>
+              {% csrf_token %}
+              <div class="d-none">
+                <input type="hidden" name="chefe_da_familia" id="chefe_da_familia" value="{{ family.id }}">
+              </div>
+
+              <div>
+                <label for="nome"><b>Nome</b></label>
+                <input type="text" name="nome" id="nome" placeholder="Nome do membro">
+                {% for error in member_form.nome.errors %}
+                  <small class="text-danger">{{ error }}</small>
+                {% endfor %}
+              </div>
+
+              <div>
+                <label for="cpf"><b>CPF</b></label>
+                <input type="text" name="cpf" id="cpf" maxlength="11" placeholder="CPF do membro">
+                {% for error in member_form.cpf.errors %}
+                  <small class="text-danger">{{ error }}</small>
+                {% endfor %}
+              </div>
+
+              <div>
+                <label for="telefone"><b>Telefone</b></label>
+                <input type="text" id="telefone" name="telefone" maxlength="16" oninput="this.value = numberFormat(this.value)" placeholder="Telefone do membro">
+                {% for error in member_form.telefone.errors %}
+                  <small class="text-danger">{{ error }}</small>
+                {% endfor %}
+              </div>
+
+              <div class="member-button-holder py-3">
+                <button type="submit" id="save-button" name="create_member" value="create_member" class="py-2 px-2">
+                  <i class="fas fa-save icon"></i>
+                  <b>Salvar</b>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    <div class="col-lg-6 col-md-12 col-sm-12 d-flex flex-column justify-content-center align-items-center">
+      <div class="title-holder bg-dark px-4 py-4">
+        <h5 class="title">
+          Família de <b>{{ family.chefe_da_familia }}</b>
+        </h5>
+      </div>
+
+      <div class="content-holder">
+        <form method=POST>
+          {% csrf_token %}
+          <div>
+            <label for="chefe_da_familia"><b>Nome</b></label>
+            <input type="text" id="chefe_da_familia" name="chefe_da_familia" value="{{ family.chefe_da_familia }}" placeholder="Nome do chefe da família">
+            {% for error in form.chefe_da_familia.errors %}
+              <small class="text-danger">{{ error }}</small>
+            {% endfor %}
+          </div>
+          
+          <div>
+            <label for="cpf"><b>CPF</b></label>
+            <input type="cpf" id="cpf" name="cpf" maxlength="11" value="{{ family.cpf }}" placeholder="CPF do chefe da família">
+            {% for error in form.cpf.errors %}
+              <small class="text-danger">{{ error }}</small>
+            {% endfor %}
+          </div>
+      
+          <div>
+            <label for="endereco"><b>Endereço</b></label>
+            <input type="text" id="endereco" name="endereco" value="{{ family.endereco }}" placeholder="Endereço da família">
+            {% for error in form.endereco.errors %}
+              <small class="text-danger">{{ error }}</small>
+            {% endfor %}
+          </div>
+      
+          <div>
+            <label for="telefone1"><b>Telefone principal</b></label>
+            <input type="text" id="telefone1" name="telefone1" maxlength="16" oninput="this.value = numberFormat(this.value)" placeholder="Telefone principal do chefe da família">
+            {% for error in form.telefone1.errors %}
+              <small class="text-danger">{{ error }}</small>
+            {% endfor %}
+          </div>
+      
+          <div>
+            <label for="telefone2"><b>Telefone secundário</b> (opcional)</label>
+            <input type="text" id="telefone2" name="telefone2" maxlength="16" oninput="this.value = numberFormat(this.value)" placeholder="Telefone secundário do chefe da família">
+            {% for error in form.telefone2.errors %}
+              <small class="text-danger">{{ error }}</small>
+            {% endfor %}
+          </div>
+      
+          <div class="button-holder py-3">
+            <button type="submit" id="edit-button" name="update" value="true" class="py-2 px-2">
+              <i class="fas fa-pen"></i>
+              <b>Editar</b>
+            </button>
+        
+            <button type="button" onclick="showConfirmation('delete_family')" id="remove-button" class="py-2 px-2">
+              <i class="fas fa-trash"></i>
+              <b>Remover</b>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-lg-8 col-md-12 col-sm-12 d-flex flex-column justify-content-center align-items-center table-responsive-sm secondary-content">
+      <table class="table table-light table-striped table-hover table-sm">
+        <div class="title-table-holder bg-dark px-4 py-4">
+          <h5 class="title">
+            Membros
+          </h5>
+          <button>
+            <button type="button" onclick="showConfirmation('create_member')" id="add-button" class="py-2 px-3">
+              <i class="fas fa-plus-square icon"></i>
+              <b>Novo membro</b>
+            </button>
+          </button>
+        </div>
+        <thead class="text-center">
+          <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">CPF</th>
+            <th scope="col">Telefone</th>
+          </tr>
+        </thead>
+  
+        <tbody class="text-center">    
+          {% if members %}
+            {% for member in members %}
+              <tr>
+                <td>
+                  <a href="{% url 'member_details' pk_family=family.pk pk_member=member.pk %}">
+                    {{ member.nome }}
+                  </a>
+                </td>
+                <td>
+                  {{ member.cpf }}
+                </td>
+                <td>
+                  {{ member.telefone }}
+                </td>
+              </tr>
+            {% endfor %}
+            {% else %}
+              <tr>
+                <td colspan="4">Não existem membros cadastrados nessa família</td>
+              </tr>
+            {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+  <!-- Remove/Create member animation -->
+  <script>
+    const remove_family = document.querySelector("#remove-family");
+    const remove_family_content_holder = document.querySelector("#remove-family-content-holder");
+
+    const create_member = document.querySelector("#create_member");
+    const create_member_content_holder = document.querySelector("#create_member_content_holder");
+
+    const showConfirmation = (action) => {
+      if (action === 'delete_family') {
+        remove_family.classList.remove("hide");
+        remove_family.classList.add("show");
+
+        remove_family_content_holder.classList.remove("hide");
+        remove_family_content_holder.classList.add("showAnimation");
+      }
+      
+      if (action === 'create_member') {
+        create_member.classList.remove("hide");
+        create_member.classList.add("show");
+        
+        create_member_content_holder.classList.remove("hide");
+        create_member_content_holder.classList.add("showAnimation");
+      }
+    }
+
+    const hideConfirmation = (action) => {
+      if (action === 'delete_family') {
+        remove_family.classList.remove("show");
+        remove_family.classList.add("hide");
+
+        remove_family_content_holder.classList.remove("showAnimation");
+        remove_family_content_holder.classList.add("hide");
+      }
+
+      if (action === 'create_member') {
+        create_member.classList.remove("show");
+        create_member.classList.add("hide");
+        
+        create_member_content_holder.classList.remove("showAnimation");
+        create_member_content_holder.classList.add("hide");
+      }
+    }
+  </script>
+
+  <!-- Number formatter -->
+  <script>
+    const numberFormat = (input) => {
+      input = input.replace(/\D/g,'');
+      const size = input.length;
+
+      if (size > 0) 
+        input = `(${input}`;
+      
+      if (size > 2)
+        input = `${input.slice(0, 3)}) ${input.slice(3)}`;
+      
+      if (size > 5 && size < 11)
+        input = `${input.slice(0, 9)}-${input.slice(9)}`;
+      
+      
+      if (size === 11)
+        input = `${input.slice(0, 3)}) ${input.charAt(5)} ${input.slice(6, 10)}-${input.slice(10)}`;
+      
+      return input;
+    }
+
+    window.onload = () => {
+      const telefone1 = document.querySelector("#telefone1");
+      const telefone2 = document.querySelector("#telefone2");
+
+      let telvalue1 = "{{ family.telefone1 }}";
+      let telvalue2 = "{{ family.telefone2 }}";
+
+      telvalue1 = numberFormat(telvalue1);
+      telvalue2 = numberFormat(telvalue2);
+
+      telefone1.value = telvalue1;
+      telefone2.value = telvalue2;
+    }
+  </script>
+{% endblock %}

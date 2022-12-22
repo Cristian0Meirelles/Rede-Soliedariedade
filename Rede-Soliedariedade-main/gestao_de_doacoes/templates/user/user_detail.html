@@ -1,0 +1,156 @@
+{% extends 'detail_generic.html' %}
+{% load auth_extras %}
+
+{% block detail_title %}
+    Usuário: <b>{{ user.username }}</b>
+{% endblock %}
+
+{% block animation %}
+  <div class="animation hide" id="remove-user">
+    <div class="animation-holder">
+      <div class="animation-content-holder hide px-4 py-5" id="remove-user-content-holder">
+        <svg xmlns="http://www.w3.org/2000/svg" width="88" height="88" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+        <h3 class="title"><b>Tem certeza?</b></h3>
+        <p class="text-center">Você deseja remover o usuário: <b>{{ user.username }}</b>? Essa ação não pode ser desfeita.</p>
+        <div class="button-animation-holder" id="remove-user-button-animation-holder">
+          <button type="button" onclick="hideConfirmation()" id="cancel">
+            <b>Cancelar</b>
+          </button>
+          <form method=POST>
+            {% csrf_token %}
+            <button type="submit" name="remove" value="true" id="confirm">
+              <b>Remover</b>
+            </button>
+          </form>
+        </div>  
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block detail_form_content %}
+  <form method=POST>
+    {% csrf_token %}
+
+    <div>
+      <label for="username"><b>Nome de usuário</b></label>
+      <input class="form-control" type="text" value="{{ user.username }}" name="username" id="username" placeholder="Nome de usuário do usuário">
+      {% for error in form.username.errors %}
+        <small class="text-danger">{{ error }}</small>
+      {% endfor %}
+    </div>
+
+    <div>
+      <label for="first_name"><b>Nome</b></label>
+      <input class="form-control" type="text" value="{{ user.first_name }}" name="first_name" id="first_name" placeholder="Nome do usuário">
+      {% for error in form.first_name.errors %}
+        <small class="text-danger">{{ error }}</small>
+      {% endfor %}
+    </div>
+
+    <div>
+      <label for="first_name"><b>Sobrenome</b></label>
+      <input class="form-control" type="text" value="{{ user.last_name }}" name="last_name" id="last_name" placeholder="Sobrenome do usuário">
+      {% for error in form.last_name.errors %}
+        <small class="text-danger">{{ error }}</small>
+      {% endfor %}
+    </div>
+
+    <div>
+      <label for="cpf"><b>CPF</b></label>
+      <input class="form-control" type="text" value="{{ user.cpf }}" id="cpf" name="cpf" placeholder="CPF do usuário" maxlength="11" oninput="this.value = onlyNumber(this.value)">
+      {% for error in form.cpf.errors %}
+        <small class="text-danger">{{ error }}</small>
+      {% endfor %}
+    </div>
+
+    <div>
+      <label for="email"><b>Email</b></label>
+      <input class="form-control" type="email" value="{{ user.email }}" id="email" name="email" placeholder="Email do usuário">
+      {% for error in form.email.errors %}
+        <small class="text-danger">{{ error }}</small>
+      {% endfor %}
+    </div>
+
+    <div>
+      <label for="telefone"><b>Telefone</b></label>
+      <input class="form-control" type="text" value="{{ user.telefone }}" id="telefone" name="telefone" maxlength="16" oninput="this.value = numberFormat(this.value)" placeholder="Telefone do usuário">
+      {% for error in form.telefone.errors %}
+        <small class="text-danger">{{ error }}</small>
+      {% endfor %}
+    </div>
+
+    {% if request.user|has_group:"Representante" or request.user.is_superuser %}
+      <div class="button-holder">
+        <button type="submit" id="edit-button" name="update" value="true" class="py-2 px-2">
+          <i class="fas fa-pen"></i>
+          <b>Editar</b>
+        </button>
+    
+        <button type="button" onclick="showConfirmation()" id="remove-button" class="py-2 px-2">
+          <i class="fas fa-trash"></i>
+          <b>Remover</b>
+        </button>
+      </div>
+    {% endif %}
+  </form>
+{% endblock %}
+
+{% block script %}
+  <script>
+    const onlyNumber = (input) => {
+      input = input.replace(/\D/g,'');
+      return input;
+    }
+  </script>
+
+  <script>
+    const remove_user = document.querySelector("#remove-user");
+    const remove_user_content_holder = document.querySelector("#remove-user-content-holder");
+
+    const showConfirmation = () => {
+      remove_user.classList.remove("hide");
+      remove_user.classList.add("show");
+
+      remove_user_content_holder.classList.remove("hide");
+      remove_user_content_holder.classList.add("showAnimation");
+    }
+
+    const hideConfirmation = () => {
+      remove_user.classList.remove("show");
+      remove_user.classList.add("hide");
+
+      remove_user_content_holder.classList.remove("showAnimation");
+      remove_user_content_holder.classList.add("hide");
+    }
+  </script>
+
+  <script>
+    const numberFormat = (input) => {
+      input = input.replace(/\D/g,'');
+      const size = input.length;
+
+      if (size > 0) 
+        input = `(${input}`;
+      
+      if (size > 2)
+        input = `${input.slice(0, 3)}) ${input.slice(3)}`;
+      
+      if (size > 5 && size < 11)
+        input = `${input.slice(0, 9)}-${input.slice(9)}`;
+      
+      
+      if (size === 11)
+        input = `${input.slice(0, 3)}) ${input.charAt(5)} ${input.slice(6, 10)}-${input.slice(10)}`;
+      
+      return input;
+    }
+
+    window.onload = () => {
+      const telefone = document.querySelector("#telefone");
+      let telvalue = "{{ user.telefone }}";
+      telvalue = numberFormat(telvalue);
+      telefone.value = telvalue;
+    }
+  </script>
+{% endblock %}

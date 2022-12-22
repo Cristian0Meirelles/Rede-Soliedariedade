@@ -1,0 +1,587 @@
+.root-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 2em;
+  overflow-y: auto;
+}
+
+.root-container .animation {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.root-container .animation .animation-holder {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.root-container .animation .animation-holder #remove-family-content-holder {
+  color: #454d54;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 1em;
+  background: white;
+}
+
+@media screen and (max-width: 1279px) {
+  .root-container .animation .animation-holder #remove-family-content-holder {
+    width: 90%;
+  }
+}
+
+@media screen and (min-width: 1280px) and (max-width: 1400px) {
+  .root-container .animation .animation-holder #remove-family-content-holder {
+    width: 35%;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .root-container .animation .animation-holder #remove-family-content-holder {
+    width: 30%;
+  }
+}
+
+.root-container .animation .animation-holder #remove-family-content-holder .feather-x-circle {
+  margin-bottom: 0.25em;
+}
+
+.root-container .animation .animation-holder #remove-family-content-holder #remove-family-button-animation-holder {
+  padding: 0.5em;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 1.25em;
+}
+
+@media screen and (max-width: 500px) {
+  .root-container .animation .animation-holder #remove-family-content-holder #remove-family-button-animation-holder {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+.root-container .animation .animation-holder #remove-family-content-holder #remove-family-button-animation-holder #cancel, .root-container .animation .animation-holder #remove-family-content-holder #remove-family-button-animation-holder #confirm {
+  padding: 0.5em 1.5em;
+  cursor: pointer;
+  color: white;
+  -webkit-transition: 100ms ease;
+  transition: 100ms ease;
+}
+
+.root-container .animation .animation-holder #remove-family-content-holder #remove-family-button-animation-holder #cancel {
+  background: #8f99a3;
+}
+
+.root-container .animation .animation-holder #remove-family-content-holder #remove-family-button-animation-holder #cancel:hover {
+  background: #73808c;
+}
+
+.root-container .animation .animation-holder #remove-family-content-holder #remove-family-button-animation-holder #confirm {
+  background: red;
+}
+
+.root-container .animation .animation-holder #remove-family-content-holder #remove-family-button-animation-holder #confirm:hover {
+  background: #330000;
+}
+
+.root-container .animation .animation-holder .member-title-holder {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+@media screen and (min-width: 1280px) and (max-width: 1400px) {
+  .root-container .animation .animation-holder .member-title-holder {
+    width: 45%;
+  }
+}
+
+@media screen and (max-width: 1279px) {
+  .root-container .animation .animation-holder .member-title-holder {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 1400px) and (max-width: 1920px) {
+  .root-container .animation .animation-holder .member-title-holder {
+    width: 45%;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .root-container .animation .animation-holder .member-title-holder {
+    width: 35%;
+  }
+}
+
+.root-container .animation .animation-holder .member-title-holder .title {
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+}
+
+.root-container .animation .animation-holder .member-title-holder button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: red;
+  padding: 0.3em 0.5em;
+  cursor: pointer;
+  color: #fff;
+}
+
+.root-container .animation .animation-holder .member-title-holder button:hover, .root-container .animation .animation-holder .member-title-holder button:focus {
+  background: #330000;
+}
+
+.root-container .animation .animation-holder .member-content-holder {
+  background: #fff;
+  padding: 2em 1.25em 1.5em 1.25em;
+}
+
+@media screen and (min-width: 1280px) and (max-width: 1400px) {
+  .root-container .animation .animation-holder .member-content-holder {
+    width: 45%;
+  }
+}
+
+@media screen and (max-width: 1279px) {
+  .root-container .animation .animation-holder .member-content-holder {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 1400px) and (max-width: 1920px) {
+  .root-container .animation .animation-holder .member-content-holder {
+    width: 45%;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .root-container .animation .animation-holder .member-content-holder {
+    width: 35%;
+  }
+}
+
+.root-container .animation .animation-holder .member-content-holder form {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 1.25em;
+}
+
+.root-container .animation .animation-holder .member-content-holder form div {
+  margin-top: 0;
+  padding-top: 0;
+  width: 100%;
+}
+
+.root-container .animation .animation-holder .member-content-holder form div label {
+  font-size: 14px;
+}
+
+.root-container .animation .animation-holder .member-content-holder form div input {
+  width: 100%;
+  padding: 0.3em 0.5em;
+  border: solid 1px #c7ccd1;
+  font-size: 15px;
+}
+
+.root-container .animation .animation-holder .member-content-holder form .member-button-holder {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.root-container .animation .animation-holder .member-content-holder form .member-button-holder #save-button {
+  background: #0059ff;
+  color: #fff;
+  width: 25%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 0.5em;
+  cursor: pointer;
+  color: white;
+  -webkit-transition: 100ms ease;
+  transition: 100ms ease;
+}
+
+@media screen and (max-width: 500px) {
+  .root-container .animation .animation-holder .member-content-holder form .member-button-holder #save-button {
+    width: 100%;
+  }
+}
+
+.root-container .animation .animation-holder .member-content-holder form .member-button-holder #save-button .icon {
+  font-size: 20px;
+}
+
+.root-container .animation .animation-holder .member-content-holder form .member-button-holder #save-button:hover {
+  background: #003699;
+}
+
+.root-container .hide {
+  top: 0;
+  left: 0;
+  display: none;
+  pointer-events: none;
+}
+
+.root-container .show {
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.root-container .showAnimation {
+  -webkit-animation: dropIn 0.4s ease;
+          animation: dropIn 0.4s ease;
+}
+
+@-webkit-keyframes dropIn {
+  from {
+    -webkit-transform: translateY(-500%);
+            transform: translateY(-500%);
+    opacity: 0;
+  }
+  to {
+    -webkit-transform: translateY(0%);
+            transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes dropIn {
+  from {
+    -webkit-transform: translateY(-500%);
+            transform: translateY(-500%);
+    opacity: 0;
+  }
+  to {
+    -webkit-transform: translateY(0%);
+            transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+.root-container .title-holder {
+  margin-top: 2.5em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+@media screen and (min-width: 1280px) and (max-width: 1399px) {
+  .root-container .title-holder {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 1279px) {
+  .root-container .title-holder {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .root-container .title-holder {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .root-container .title-holder {
+    width: 60%;
+  }
+}
+
+.root-container .title-holder .title {
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+}
+
+.root-container .content-holder {
+  background: #fff;
+  padding: 2em 1.25em 1.5em 1.25em;
+}
+
+@media screen and (min-width: 1280px) and (max-width: 1399px) {
+  .root-container .content-holder {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 1279px) {
+  .root-container .content-holder {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .root-container .content-holder {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .root-container .content-holder {
+    width: 60%;
+  }
+}
+
+.root-container .content-holder form {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 1.25em;
+}
+
+.root-container .content-holder form div {
+  margin-top: 0;
+  padding-top: 0;
+  width: 100%;
+}
+
+.root-container .content-holder form div label {
+  font-size: 14px;
+}
+
+.root-container .content-holder form div input {
+  width: 100%;
+  padding: 0.3em 0.5em;
+  border: solid 1px #c7ccd1;
+  font-size: 15px;
+}
+
+.root-container .content-holder form .button-holder {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+@media screen and (max-width: 500px) {
+  .root-container .content-holder form .button-holder {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    gap: 1em;
+  }
+}
+
+.root-container .content-holder form .button-holder #edit-button, .root-container .content-holder form .button-holder #remove-button {
+  width: 30%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 0.5em;
+  cursor: pointer;
+  color: white;
+  -webkit-transition: 100ms ease;
+  transition: 100ms ease;
+}
+
+@media screen and (max-width: 500px) {
+  .root-container .content-holder form .button-holder #edit-button, .root-container .content-holder form .button-holder #remove-button {
+    width: 100%;
+  }
+}
+
+.root-container .content-holder form .button-holder #edit-button .icon, .root-container .content-holder form .button-holder #remove-button .icon {
+  font-size: 20px;
+}
+
+.root-container .content-holder form .button-holder #edit-button {
+  background: orange;
+}
+
+.root-container .content-holder form .button-holder #edit-button:hover, .root-container .content-holder form .button-holder #edit-button:focus {
+  background: #d68b00;
+}
+
+.root-container .content-holder form .button-holder #remove-button {
+  background: red;
+}
+
+.root-container .content-holder form .button-holder #remove-button:hover, .root-container .content-holder form .button-holder #remove-button:focus {
+  background: #330000;
+}
+
+.root-container .secondary-content .title-table-holder {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+@media screen and (max-width: 500px) {
+  .root-container .secondary-content .title-table-holder {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    gap: 0.5em;
+  }
+}
+
+@media screen and (min-width: 501px) {
+  .root-container .secondary-content .title-table-holder {
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+}
+
+.root-container .secondary-content .title-table-holder .title {
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+}
+
+.root-container .secondary-content .title-table-holder #add-button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 0.5em;
+  cursor: pointer;
+  color: white;
+  -webkit-transition: 100ms ease;
+  transition: 100ms ease;
+}
+
+.root-container .secondary-content .title-table-holder #add-button .icon {
+  font-size: 20px;
+}
+
+.root-container .secondary-content .title-table-holder #add-button {
+  background: green;
+}
+
+.root-container .secondary-content .title-table-holder #add-button:hover, .root-container .secondary-content .title-table-holder #add-button:focus {
+  background: #006600;
+}
+
+.root-container .secondary-content table tbody td a {
+  cursor: pointer;
+  color: #000;
+  text-decoration: none;
+  -webkit-transition: 100ms ease;
+  transition: 100ms ease;
+}
+
+.root-container .secondary-content table tbody td a:hover {
+  color: #454d54;
+}
+/*# sourceMappingURL=detail_family.css.map */

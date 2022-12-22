@@ -1,0 +1,42 @@
+[ 
+  {
+    "model": "authentication.usuario", 
+    "pk": 2, 
+    "fields": {
+      "password": "pbkdf2_sha256$320000$X0jA1yo4KifpMGxb8z4xFf$cW0L7pAnRjqXveI7Y/ysig9e65RjHPIEGgb+M4BuhVE=", 
+      "last_login": "2022-01-19T17:51:45.933Z", 
+      "is_superuser": false, 
+      "username": "representante",
+      "first_name": "Representante", 
+      "last_name": "", 
+      "email": "", 
+      "is_staff": true, 
+      "is_active": true, 
+      "date_joined": "2022-01-16T21:27:35Z", 
+      "cpf": "11111111111", 
+      "telefone": null, 
+      "groups": [1], 
+      "user_permissions": []
+    }
+  }, 
+  {
+    "model": "authentication.usuario", 
+    "pk": 3, 
+    "fields": {
+      "password": "pbkdf2_sha256$320000$9LU0siceI9pRMkBcJ3cdSQ$P/5ti+bgnF2l4UzoBWdN4AENDW27HSBchKgZYA3QZZY=", 
+      "last_login": "2022-01-19T23:42:54.496Z", 
+      "is_superuser": false, 
+      "username": "usuario", 
+      "first_name": "Usuário", 
+      "last_name": "Usuário", 
+      "email": "usuario@teste.com", 
+      "is_staff": false, 
+      "is_active": true, 
+      "date_joined": "2022-01-16T22:25:17Z", 
+      "cpf": "11111111111", 
+      "telefone": "(47) 3622-0000", 
+      "groups": [2], 
+      "user_permissions": []
+    }
+  }
+]

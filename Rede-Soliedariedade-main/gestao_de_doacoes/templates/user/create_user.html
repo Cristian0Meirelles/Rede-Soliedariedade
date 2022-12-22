@@ -1,0 +1,113 @@
+{% extends 'create_generic.html' %}
+
+{% block create_title %}
+  Novo usuário
+{% endblock %}
+
+{% block create_form_content %}
+  <form method=POST>
+    {% csrf_token %}
+
+    <div>
+      <label for="username"><b>Nome de usuário</b></label>
+      <input class="form-control" type="text" name="username" id="username" placeholder="Nome de usuário do usuário">
+      {% for error in form.username.errors %}
+        <small class="text-danger">{{ error }}</small>
+      {% endfor %}
+    </div>
+
+    <div>
+      <label for="password1"><b>Senha</b></label>
+      <input class="form-control" type="password" name="password1" id="password1" placeholder="Senha do usuário">
+      {% for error in form.password1.errors %}
+        <small class="text-danger">{{ error }}</small>
+      {% endfor %}
+    </div>
+
+    <div>
+      <label for="password2"><b>Confirmar senha</b></label>
+      <input class="form-control" type="password" name="password2" id="password2" placeholder="Repitir senha do usuário">
+      {% for error in form.password2.errors %}
+        <small class="text-danger">{{ error }}</small>
+      {% endfor %}
+    </div>
+
+    <div>
+      <label for="first_name"><b>Nome</b></label>
+      <input class="form-control" type="text" name="first_name" id="first_name" placeholder="Nome do usuário">
+      {% for error in form.first_name.errors %}
+        <small class="text-danger">{{ error }}</small>
+      {% endfor %}
+    </div>
+
+    <div>
+      <label for="first_name"><b>Sobrenome</b></label>
+      <input class="form-control" type="text" name="last_name" id="last_name" placeholder="Sobrenome do usuário">
+      {% for error in form.last_name.errors %}
+        <small class="text-danger">{{ error }}</small>
+      {% endfor %}
+    </div>
+
+    <div>
+      <label for="cpf"><b>CPF</b></label>
+      <input class="form-control" type="text" id="cpf" name="cpf" placeholder="CPF do usuário" maxlength="11" oninput="this.value = onlyNumber(this.value)">
+      {% for error in form.cpf.errors %}
+        <small class="text-danger">{{ error }}</small>
+      {% endfor %}
+    </div>
+
+    <div>
+      <label for="email"><b>Email</b></label>
+      <input class="form-control" type="email" id="email" name="email" placeholder="Email do usuário">
+      {% for error in form.email.errors %}
+        <small class="text-danger">{{ error }}</small>
+      {% endfor %}
+    </div>
+
+    <div>
+      <label for="telefone"><b>Telefone</b></label>
+      <input class="form-control" type="text" id="telefone" name="telefone" maxlength="16" oninput="this.value = numberFormat(this.value)" placeholder="Telefone da entidade">
+      {% for error in form.telefone.errors %}
+        <small class="text-danger">{{ error }}</small>
+      {% endfor %}
+    </div>
+
+    <div class="button-holder">
+      <button type="submit" id="save-button" class="btn-primary py-2 px-2">
+        <i class="fas fa-save icon"></i>
+        <b>Salvar</b>
+      </button>
+    </div>
+  </form>
+{% endblock %}
+
+{% block script %}
+  <script>
+    const onlyNumber = (input) => {
+      input = input.replace(/\D/g,'');
+      return input;
+    }
+  </script>
+
+  <!-- Number formatter -->
+  <script>
+    const numberFormat = (input) => {
+      input = input.replace(/\D/g,'');
+      const size = input.length;
+
+      if (size > 0) 
+        input = `(${input}`;
+      
+      if (size > 2)
+        input = `${input.slice(0, 3)}) ${input.slice(3)}`;
+      
+      if (size > 5 && size < 11) 
+        input = `${input.slice(0, 9)}-${input.slice(9)}`;
+      
+      if (size === 11) 
+        input = `${input.slice(0, 3)}) ${input.charAt(5)} ${input.slice(6, 10)}-${input.slice(10)}`;
+
+      return input;
+    }
+  </script>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %} 
+{% load static %}
+
+{% block style %}
+  <link rel="stylesheet" href="{% static 'css/detail/detail.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="row h-100 p-2 root-container">
+    {% block animation %}
+    {% endblock %}
+    <div class="col d-flex flex-column justify-content-center align-items-center">
+      <div class="title-holder bg-dark px-4 py-4">
+        <h5 class="title">
+          {% block detail_title %}
+          {% endblock %}
+        </h5>
+      </div>
+
+      <div class="content-holder">
+        {% block detail_form_content %}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
