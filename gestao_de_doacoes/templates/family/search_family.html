@@ -1,0 +1,103 @@
+{% extends 'table_generic.html' %} 
+{% load auth_extras %}
+
+{% block table_title %}
+  Resultados da pesquisa
+{% endblock %}
+
+{% block table_search %}
+  {% if paginator.has_other_pages %}
+    <form action="{% url 'search_family' %}" method="GET">
+      {% csrf_token %}
+      <input class="form-control" type="search" name="search_term" required placeholder="Pesquisar familia...">
+      <button type="submit">
+        <i class="fas fa-search"></i>
+      </button>
+    </form>
+  {% endif %}
+{% endblock %}
+
+{% block table_add_button %}
+  {% if request.user|has_group:"Usuário" or request.user.is_superuser %}
+    <a id="add-button" class="py-2 px-3">
+      <i class="fas fa-plus-square icon"></i>
+      <b>Nova família</b>
+    </a>
+  {% endif %}
+{% endblock %}
+
+{% block table_head %}
+  <th scope="col">ID</th>
+  <th scope="col">Chefe da família</th>
+  <th scope="col">Endereço</th>
+  <th scope="col">Telefone principal</th>
+{% endblock %}
+
+{% block table_body %}
+  {% if paginator %}
+    {% for family in paginator %}
+      <tr>
+        <th scope="row">
+          {{ family.id }}
+        </th>
+        <td>
+          <a href="{% url 'family_details' family.pk %}">
+            {{ family.chefe_da_familia }}
+          </a>
+        </td>
+        <td>
+          {{ family.endereco }}
+        </td>
+        <td>
+          {{ family.telefone1 }}
+        </td>
+      </tr>
+    {% endfor %}
+    {% else %}
+      <tr>
+        <td colspan="4">Não existem famílias com o parâmetro de pesquisa</td>
+      </tr>
+  {% endif %}
+{% endblock %}
+
+{% block pagination %}
+  {% if paginator.has_other_pages %}
+  <p>Mostrando de <b>{{ paginator.start_index }}</b> até <b>{{ paginator.end_index }}</b> de <b>{{ paginator.paginator.count }}</b> resultados</p>
+  {% else %}
+  <p><b>{{ paginator.paginator.count }}</b> resultados</p>
+  {% endif %}
+
+  {% if paginator.has_other_pages %}
+    <div>
+      {% if paginator.has_previous %}
+        <a class="activated" href="{% url 'family' %}?page={{ paginator.previous_page_number }}">
+          <i class="fas fa-chevron-left"></i>
+        </a>
+      {% else %}
+        <a class="disabled" href="#">
+          <i class="fas fa-chevron-left"></i>
+        </a>
+      {% endif %}
+
+      {% for page in paginator.paginator.page_range %}
+        {% if paginator.number == page %}
+          <p id="pagination">{{ page }}</p>
+        {% elif page <= paginator.number|add:5 and page >= paginator.number|add:-5 %}
+          <a class="activated" href="{% url 'family' %}?page={{ page }}">
+            {{ page }}
+          </a>         
+        {% endif %}
+      {% endfor %}
+
+      {% if paginator.has_next %}
+        <a class="activated" href="{% url 'family' %}?page={{ paginator.next_page_number }}">
+          <i class="fas fa-chevron-right"></i>
+        </a>
+      {% else %}
+        <a class="disabled" href="#">
+          <i class="fas fa-chevron-right"></i>
+        </a>
+      {% endif %}
+    </div>
+  {% endif %}
+{% endblock %}

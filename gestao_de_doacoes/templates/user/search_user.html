@@ -1,0 +1,106 @@
+{% extends 'table_generic.html' %}
+{% load auth_extras %}
+
+{% block table_title %}
+  Lista de <b>usuários</b>
+{% endblock %}
+
+{% block table_search %}
+  {% if paginator.has_other_pages %}
+    <form action="{% url 'search_user' %}" method=GET>
+      {% csrf_token %}
+      <input class="form-control" type="search" name="search_term" placeholder="Pesquisar usuário..." required>
+      <button type="submit">
+        <i class="fas fa-search"></i>
+      </button>
+    </form>
+  {% endif %}
+{% endblock %}
+
+{% block table_add_button %}
+  {% if request.user|has_group:"Representante" or request.user.is_superuser %}
+  <a href="{% url 'create_user' %}" id="add-button" class="py-2 px-3">
+    <i class="fas fa-plus-square icon"></i>
+    <b>Novo usuário</b>
+  </a>
+  {% endif %}
+{% endblock %}
+
+
+{% block table_head %}
+  <th scope="col">ID</th>
+  <th scope="col">Nome</th>
+  <th scope="col">Sobrenome</th>
+  <th scope="col">Telefone</th>
+{% endblock %}
+
+{% block table_body %}
+  {% if paginator %}
+    {% for user in paginator %}
+      <tr>
+        <th scope="row">
+          {{ user.id }}
+        </th>
+        <td>
+          <a href="{% url 'user_details' user.pk %}">
+            {{ user.first_name }}
+          </a>
+        </td>
+        <td>
+          {{ user.last_name }}
+        </td>
+        <td>
+          {{ user.telefone }}
+        </td>
+      </tr>
+    {% endfor %}
+  {% else %}
+    <tr>
+      <td colspan="4">Não existem usuários cadastrados.</td>
+    </tr>
+  {% endif %}
+{% endblock %}
+
+{% block pagination %}
+  {% if paginator.has_other_pages %}
+    <p>Mostrando de <b>{{ paginator.start_index }}</b> até <b>{{ paginator.end_index }}</b> de <b>{{ paginator.paginator.count }}</b> resultados</p>
+  {% else %}
+    <p><b>{{ paginator.paginator.count }}</b> resultados</p>
+  {% endif %}
+
+  {% if paginator.has_other_pages %}
+    <div>
+      {% if paginator.has_previous %}
+        <a class="activated" href="{% url 'user' %}?page={{ paginator.previous_page_number }}">
+          <i class="fas fa-chevron-left"></i>
+        </a>
+      {% else %}
+        <a class="disabled" href="#">
+          <i class="fas fa-chevron-left"></i>
+        </a>
+      {% endif %}
+
+      {% for page in paginator.paginator.page_range %}
+        {% if paginator.number == page %}
+          <a class="current" href="#">
+            {{ page }}
+          </a>
+        {% elif page > paginator.number|add:'-3' and page < paginator.number|add:'3' %}
+          <a class="activated" href="{% url 'user' %}?page={{ page }}">
+            {{ page }}
+          </a>         
+        {% endif %}
+      {% endfor %}
+
+      {% if paginator.has_next %}
+        <a class="activated" href="{% url 'user' %}?page={{ paginator.next_page_number }}">
+          <i class="fas fa-chevron-right"></i>
+        </a>
+      {% else %}
+        <a class="disabled" href="#">
+          <i class="fas fa-chevron-right"></i>
+        </a>
+      {% endif %}
+    </div>
+  {% endif %}
+{% endblock %}

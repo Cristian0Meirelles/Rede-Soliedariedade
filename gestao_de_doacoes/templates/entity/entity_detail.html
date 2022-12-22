@@ -1,0 +1,165 @@
+{% extends 'detail_generic.html' %}
+{% load auth_extras %}
+
+{% block detail_title %}
+    Entidade: <b>{{ entity.nome_fantasia }}</b>
+{% endblock %}
+
+{% block animation %}
+  <div class="animation hide" id="remove-entity">
+    <div class="animation-holder">
+      <div class="animation-content-holder hide px-4 py-5" id="remove-entity-content-holder">
+        <svg xmlns="http://www.w3.org/2000/svg" width="88" height="88" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+        <h3 class="title"><b>Tem certeza?</b></h3>
+        <p class="text-center">Você deseja remover a entidade: <b>{{ entity.nome_fantasia }}</b>? Essa ação não pode ser desfeita.</p>
+        <div class="button-animation-holder" id="remove-entity-button-animation-holder">
+          <button type="button" onclick="hideConfirmation()" id="cancel">
+            <b>Cancelar</b>
+          </button>
+          <form method=POST>
+            {% csrf_token %}
+            <button type="submit" name="remove" value="true" id="confirm">
+              <b>Remover</b>
+            </button>
+          </form>
+        </div>  
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block detail_form_content %}
+  <form method=POST>
+    {% csrf_token %}
+
+    <div>
+      <label for="nome_fantasia"><b>Nome fantasia</b></label>
+      <input class="form-control" type="text" name="nome_fantasia" value="{{ entity.nome_fantasia }}" id="nome_fantasia" placeholder="Nome fantasia da entidade">
+      {% for error in form.nome_fantasia.errors %}
+        <small class="text-danger">{{ error }}</small>
+      {% endfor %}
+    </div>
+
+    <div>
+      <label for="cnpj"><b>CNPJ</b></label>
+      <input class="form-control" type="text" id="cnpj" name="cnpj" value="{{ entity.cnpj }}" placeholder="CNPJ da entidade" maxlength="14" oninput="this.value = onlyNumber(this.value)">
+      {% for error in form.cnpj.errors %}
+        <small class="text-danger">{{ error }}</small>
+      {% endfor %}
+    </div>
+
+    <div>
+      <label for="endereco"><b>Endereço</b></label>
+      <input class="form-control" type="text" id="endereco" name="endereco" value="{{ entity.endereco }}" placeholder="Endereço da entidade">
+      {% for error in form.endereco.errors %}
+        <small class="text-danger">{{ error }}</small>
+      {% endfor %}
+    </div>
+
+    <div>
+      <label for="telefone"><b>Telefone</b></label>
+      <input class="form-control" type="text" id="telefone" name="telefone" maxlength="16" value="{{ entity.telefone }}" oninput="this.value = numberFormat(this.value)" placeholder="Telefone da entidade">
+      {% for error in form.telefone.errors %}
+        <small class="text-danger">{{ error }}</small>
+      {% endfor %}
+    </div>
+
+    <div>
+      <label for="email"><b>Email</b></label>
+      <input class="form-control" type="email" id="email" name="email" value="{{ entity.email }}" placeholder="Email da entidade">
+      {% for error in form.email.errors %}
+        <small class="text-danger">{{ error }}</small>
+      {% endfor %}
+    </div>
+
+    <div>
+      <label for="representante"><b>Representante</b></label>
+      {% if request.user|has_group:"Representante" %}
+        <input class="form-control" type="hidden" readonly value="{{ entity.representante.id }}" name="representante" id="representante">
+        <input class="form-control" type="text" readonly value="{{ entity.representante.first_name }}" >
+      {% elif request.user.is_superuser %}
+        <select class="custom-select" name="representante" id="representante">
+          <option selected value="{{ entity.representante.id }}">{{ entity.representante.first_name }}</option>
+          {% for user in users %}
+            {% if user.id != entity.representante.id %}
+              <option value="{{ user.id }}">{{ user.first_name }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+      {% endif %}
+    </div>
+
+    {% if request.user|has_group:"Representante" or request.user.is_superuser %}
+      <div class="button-holder">
+        <button type="submit" id="edit-button" name="update" value="true" class="py-2 px-2">
+          <i class="fas fa-pen"></i>
+          <b>Editar</b>
+        </button>
+    
+        <button type="button" onclick="showConfirmation()" id="remove-button" class="py-2 px-2">
+          <i class="fas fa-trash"></i>
+          <b>Remover</b>
+        </button>
+      </div>
+    {% endif %}
+  </form>
+{% endblock %}
+
+{% block script %}
+  <script>
+    const onlyNumber = (input) => {
+      input = input.replace(/\D/g,'');
+      return input;
+    }
+  </script>
+
+  <script>
+    const remove_entity = document.querySelector("#remove-entity");
+    const remove_entity_content_holder = document.querySelector("#remove-entity-content-holder");
+
+    const showConfirmation = () => {
+      remove_entity.classList.remove("hide");
+      remove_entity.classList.add("show");
+
+      remove_entity_content_holder.classList.remove("hide");
+      remove_entity_content_holder.classList.add("showAnimation");
+    }
+
+    const hideConfirmation = () => {
+      remove_entity.classList.remove("show");
+      remove_entity.classList.add("hide");
+
+      remove_entity_content_holder.classList.remove("showAnimation");
+      remove_entity_content_holder.classList.add("hide");
+    }
+  </script>
+
+  <script>
+    const numberFormat = (input) => {
+      input = input.replace(/\D/g,'');
+      const size = input.length;
+
+      if (size > 0) 
+        input = `(${input}`;
+      
+      if (size > 2)
+        input = `${input.slice(0, 3)}) ${input.slice(3)}`;
+      
+      if (size > 5 && size < 11)
+        input = `${input.slice(0, 9)}-${input.slice(9)}`;
+      
+      
+      if (size === 11)
+        input = `${input.slice(0, 3)}) ${input.charAt(5)} ${input.slice(6, 10)}-${input.slice(10)}`;
+      
+      return input;
+    }
+
+    window.onload = () => {
+      const telefone = document.querySelector("#telefone");
+      let telvalue = "{{ entity.telefone }}";
+      telvalue = numberFormat(telvalue);
+      telefone.value = telvalue;
+    }
+  </script>
+{% endblock %}

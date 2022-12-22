@@ -1,0 +1,13 @@
+[
+  {
+    "model": "gestao_de_doacoes.familia", 
+    "fields": {
+      "chefe_da_familia": "Teste", 
+      "cpf": "11111111111", 
+      "endereco": "Rua Teste, Teste, 999", 
+      "telefone1": "(47) 3622-0000", 
+      "telefone2": "(47) 3622-1111", 
+      "data_cadastro": "2022-01-14"
+    }
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "model": "gestao_de_doacoes.entidade", 
+    "fields": {
+      "nome_fantasia": "Teste1", 
+      "cnpj": "11111111111111", 
+      "endereco": "Rua Teste, Teste, 999", 
+      "telefone": "(47) 3622-0111", 
+      "email": "teste@teste.com", 
+      "representante": 2, 
+      "data_cadastro": "2022-01-19"
+    }
+  }
+]

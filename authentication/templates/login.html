@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema de Gestão de Doações</title>
+
+    <link rel="shortcut icon" href="{% static 'img/favicon/favicon.png' %}" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+
+    <!-- Google Fonts: Nunito sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome Kit -->
+    <script
+      src="https://kit.fontawesome.com/8dcd95e926.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Reset CSS -->
+    <link rel="stylesheet" href="{% static 'css/reset/reset.css' %}" />
+
+    <!-- Login CSS -->
+    <link rel="stylesheet" href="{% static 'css/login/login.css' %}">
+
+  </head>
+
+  <body>
+    <div class="container-fluid h-100">
+      <div class="row h-100">
+        <div class="col-lg-5 col-md-12 col-sm-12 d-flex flex-column justify-content-center align-items-center">
+          <div class="login-holder">
+            <div class="title-holder bg-dark">
+              <h4>Login</h4>
+            </div>
+            <div class="form-holder">
+              {% if messages %}
+                {% for message in messages %}
+                  <div class="alert alert-danger d-flex align-items-center" role="alert">
+                    <i class="mr-2 text-danger fas fa-exclamation-triangle"></i>
+                    <div>
+                      <small>
+                        <b>
+                        {{ message }}
+                        </b>
+                      </small>
+                    </div>
+                  </div>
+                {% endfor %}
+              {% endif %}
+              <form action="" method=POST>
+                {% csrf_token %}
+                <div class="input-holder">
+                  <label for="username"><b>Usuário</b></label><br>
+                  <input type="text" id="username" name="username" placeholder="Usuário" required>
+                </div>
+
+                <div class="input-holder">
+                  <label for="password"><b>Senha</b></label><br>
+                  <input type="password" id="password" name="password" placeholder="Senha" required>
+                </div>
+                
+                <button id="login-button" class="p-2" type="submit"><b>Entrar</b></button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-7 d-lg-flex flex-column justify-content-center align-items-center d-none bg-dark">
+          <div class="logo-holder">
+            <h1>
+              Rede<br>
+              Soliedariedade
+            </h1>
+          </div>
+          <div class="copyright"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <script>
+      const copyright = document.querySelector(".copyright")
+      const date = new Date();
+
+      copyright.innerHTML = `© ${date.getFullYear()} - Rede Soliedariedade`;
+    </script>
+
+    <!-- Boostrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

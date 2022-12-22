@@ -1,0 +1,11 @@
+[
+  {"model": "gestao_de_doacoes.integrantefamiliar", 
+    "fields": {
+      "chefe_da_familia": 1, 
+      "nome": "Teste", 
+      "cpf": "11111111111", 
+      "telefone": "(47) 3623-0101", 
+      "data_cadastro": "2022-01-19"
+    }
+  }
+]
